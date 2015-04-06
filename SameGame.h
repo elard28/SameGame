@@ -1,9 +1,79 @@
 #ifndef SAMEGAME_H
 #define SAMEGAME_H
 
+#include <iostream>
+#include <stack>
+#include <map>
+#include <vector>
+#include <algorithm>
+#include <fstream>
+#include <string>
+#include <string.h>
+
+using namespace std;
+
 class SameGame{
+	private:
+		int fil;
+		int colum;
+
+		int **tablero;
+		int col_actives;
+
+		stack<int> p_drop,p_free;
+		vector<int> col_empty;
+		bool is_Empty;
+
 	public:
-		SameGame();
+		SameGame(){};
+
+		SameGame(int** mat, int f, int c)
+		{
+			fil=f;
+			colum=c;
+			col_actives = colum;
+			is_Empty = 0;
+
+			tablero=mat;
+		}
+
+		SameGame(char *txt)
+		{
+			fil=0;
+			colum=0;
+			get_text(txt);
+		}
+
+		void get_text(char *txt)
+		{
+			ifstream in("matrix.txt");
+		    string str;
+		    vector<int> mat;
+
+		    while(getline(in,str))
+		    {
+		        char *chain=new char[str.length()+1];
+		        strcpy(chain,str.c_str());
+
+		        char *token=strtok(chain," ");
+		        while(token!=NULL)
+		        {
+		            mat.push_back(atoi(token));
+		            token=strtok(NULL," ");
+		        }
+		        fil++;
+		    }
+
+		    colum=mat.size()/fil;
+
+		    tablero=new int*[fil];
+		    for (int i = 0; i < fil; ++i)
+		    {
+		        tablero[i]=new int[colum];
+		        for (int j = 0; j < colum; ++j)
+		            tablero[i][j]=mat[(i*colum)+j];
+		    }
+		}
 
 
 	bool find_next(int pos_x, int pos_y, int value){
