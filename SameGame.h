@@ -126,7 +126,33 @@ class SameGame{
 	    }
 	}
 
+	void drop(int pos_x, int pos_y){
+	    if ((pos_x < fil && pos_y < colum) && (pos_x>=0 && pos_y>=0)){
+	        int value = tablero[pos_x][pos_y];
+	        if (value != 0){
+	            tablero[pos_x][pos_y] = 0;
+	            p_drop.push(value);
+	            is_Empty = 1;
+	        }
 
+	        drop(pos_x+1,pos_y);
+
+	        if (!p_drop.empty()){
+	            tablero[pos_x][pos_y] = p_drop.top();
+	            p_drop.pop();
+	        }
+	    }
+	}
+
+	void dropColumm(){
+	    for (int i = 0; i < colum;i++){
+	        drop(0,i);
+	        if (is_Empty == 0){
+	            col_empty.push_back(i);
+	        }
+	        is_Empty = 0;
+	    }
+	}
 
 
 
