@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 #ifndef SAMEGAME_H
 #define SAMEGAME_H
 
@@ -168,9 +168,31 @@ class SameGame{
 	    }
 	}
 
+	void free_Colum(int pos_x, int pos_y){
+	    if ((pos_x < fil && pos_y < colum) && (pos_x>=0 && pos_y>=0)){
+	        int value = tablero[pos_x][pos_y];
+	        tablero[pos_x][pos_y] = 0;
+	        p_free.push(value);
+	        free_Colum(pos_x,pos_y+1);
 
+	        tablero[pos_x][pos_y-1] = p_free.top();
+	        p_free.pop();
+	    }
+	}
 
+	void select_col(){
+	    if (!col_empty.empty()) {
+	        sort(col_empty.begin(),col_empty.end());
 
+	        for(int i = col_empty.size()-1; i >= 0; i--){
+	            for(int j = 0; j < fil; j++){
+	                free_Colum(j,col_empty[i]+1);
+	            }
+	            col_actives--;
+	        }
+	        col_empty.clear();
+	    }
+	}
 
 	void show(){
 	    for (int i = 0; i < fil;i++){
