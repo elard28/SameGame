@@ -172,7 +172,34 @@ class SameGame{
 
 
 
+	void show(){
+	    for (int i = 0; i < fil;i++){
+	        for(int j = 0; j < colum; j++)
+	            cout << tablero[i][j] << " ";
+	        cout << endl;
+	    }
+	    cout << endl;
+	}
 
+	void show_pos()
+	{
+		for (int i = 0; i < fil;i++)
+		{
+	        cout<<fil-1-i<<" | ";
+	        for(int j = 0; j < colum; j++)
+	            cout << tablero[i][j] << " ";
+	        cout << endl;
+	    }
+	    cout<<"--+";
+	    for (int i = 0; i < colum; ++i)
+	       	cout<<"--";
+	    cout<<"-"<<endl;
+	    cout<<"  | ";
+	    for (int i = 0; i < colum; ++i)
+	       	cout<<i<<" ";
+
+	    cout << endl<<endl;
+	}
 
 	bool if_win()
 	{
