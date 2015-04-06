@@ -272,3 +272,4 @@ class SameGame{
 
 };
 
+#endif // SAMEGAME_H
