@@ -6,6 +6,21 @@ class SameGame{
 		SameGame();
 
 
+	void delete_group(int pos_x, int pos_y, int old_value, int new_value){
+	    if ((pos_x < fil && pos_y < colum) && (pos_x>=0 && pos_y>=0)){
+	        int value = tablero[pos_x][pos_y];
+
+	        if(value == old_value)
+	        {
+	            tablero[pos_x][pos_y] = new_value;
+	            delete_group(pos_x+1,pos_y,old_value,new_value);
+	            delete_group(pos_x-1,pos_y,old_value,new_value);
+	            delete_group(pos_x,pos_y+1,old_value,new_value);
+	            delete_group(pos_x,pos_y-1,old_value,new_value);
+	        }
+	    }
+	}
+
 	bool find_next(int pos_x, int pos_y, int value){
 	    int x1,y1,x2,y2,x3,y3,x4,y4;
 
