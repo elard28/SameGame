@@ -14,6 +14,7 @@ Descripción
 El Juego Same (https://en.wikipedia.org/wiki/SameGame) consiste en un campo rectangular inicialmente lleno de bloques de colores. El jugador puede seleccionar un grupo (haciendo clic en una posición) para ser eliminado. Dos bloques están en el mismo grupo si tienen el mismo color y son adyacentes (vertical u horizontalmente). Después de seleccionar un grupo, los bloques que se encontraban por encima del grupo de bloques se caen y se llenan los espacios en blanco. Cuando una columna se queda sin bloques, los bloques se desplazan a la derecha a la izquierda. Sólo los grupos con más de un bloque se pueden seleccionar.
 
 La figura (http://www.ime.usp.br/~alvaroma/ucsp/proglang/gameSAME.png) presenta 4 etapas del juego.
+
     1. Juego inicial;
     2. grupo seleccionado para eliminación;
     3. despues de la eliminación del grupo, los bloques caen;
