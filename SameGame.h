@@ -114,6 +114,17 @@ class SameGame{
 	    return false;
 	}
 
+	void mark_position(int pos_x, int pos_y){
+	    int value = tablero[pos_x][pos_y];
+		//int value = tablero[fil-1-pos_x][pos_y];
+	    if (value != 0){
+	        if (find_next(pos_x,pos_y,value)){
+	            delete_group(pos_x, pos_y, value, 0);
+	            dropColumm();
+	            select_col();
+	        }
+	    }
+	}
 
 };
 
