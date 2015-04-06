@@ -126,5 +126,46 @@ class SameGame{
 	    }
 	}
 
+
+
+
+
+
+
+
+
+	bool if_win()
+	{
+		for (int i = 0; i < fil; ++i)
+		{
+			for (int j = 0; j < colum; ++j)
+			{
+				if(tablero[i][j]!=0)
+					return false;
+			}
+		}
+		cout<<"you win"<<endl;
+		return true;
+	}
+
+	bool if_end()
+	{
+		if(if_win())
+			return true;
+		for (int i = 0; i < fil; ++i)
+		{
+			for (int j = 0; j < colum; ++j)
+			{
+				if(tablero[i][j]!=0)
+				{
+					if(find_next(i,j,tablero[i][j]))
+						return false;
+				}
+			}
+		}
+		cout<<"you lose"<<endl;
+		return true;
+	}
+
 };
 
