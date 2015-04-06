@@ -76,6 +76,20 @@ class SameGame{
 		    }
 		}
 
+		int get_fil(){return fil;}
+	int get_colum(){return colum;}
+	int** get_table(){return tablero;}
+
+	void delete_pos(int x,int y)
+	{
+		mark_position(fil-1-x,y);
+	}
+
+	bool get_empty()
+	{
+		return is_Empty;
+	}
+
 	void delete_group(int pos_x, int pos_y, int old_value, int new_value){
 	    if ((pos_x < fil && pos_y < colum) && (pos_x>=0 && pos_y>=0)){
 	        int value = tablero[pos_x][pos_y];
@@ -191,6 +205,20 @@ class SameGame{
 		}
 		cout<<"you lose"<<endl;
 		return true;
+	}
+
+	void lets_play()
+	{
+		cout<<"Completa hasta llegar a cero."<<endl;
+		show_pos();
+	    while(!get_empty() && !if_end())
+	    {
+	        int a,b;
+	        cin>>a;
+	        cin>>b;
+	        delete_pos(a,b);
+	        show_pos();
+	    }
 	}
 
 };
