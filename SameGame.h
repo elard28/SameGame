@@ -10,6 +10,7 @@
 #include <fstream>
 #include <string>
 #include <string.h>
+#include <utility>
 
 using namespace std;
 
@@ -24,6 +25,8 @@ class SameGame{
 		stack<int> p_drop,p_free;
 		vector<int> col_empty;
 		bool is_Empty;
+
+		vector< vector<pair<int,int> > > posits;
 
 	public:
 		SameGame(){};
@@ -128,7 +131,7 @@ class SameGame{
 	    return false;
 	}
 
-	void mark_position(int pos_x, int pos_y){
+	bool mark_position(int pos_x, int pos_y){
 	    int value = tablero[pos_x][pos_y];
 		//int value = tablero[fil-1-pos_x][pos_y];
 	    if (value != 0){
@@ -136,8 +139,10 @@ class SameGame{
 	            delete_group(pos_x, pos_y, value, 0);
 	            dropColumm();
 	            select_col();
+	            return true;
 	        }
 	    }
+	    return false;
 	}
 
 	void drop(int pos_x, int pos_y){
@@ -225,22 +230,13 @@ class SameGame{
 
 	bool if_win()
 	{
-		for (int i = 0; i < fil; ++i)
-		{
-			for (int j = 0; j < colum; ++j)
-			{
-				if(tablero[i][j]!=0)
-					return false;
-			}
-		}
-		cout<<"you win"<<endl;
+		if(tablero[fil-1][0]!=0)
+			return false;
 		return true;
 	}
 
-	bool if_end()
+	bool if_lose()
 	{
-		if(if_win())
-			return true;
 		for (int i = 0; i < fil; ++i)
 		{
 			for (int j = 0; j < colum; ++j)
@@ -252,8 +248,22 @@ class SameGame{
 				}
 			}
 		}
-		cout<<"you lose"<<endl;
 		return true;
+	}
+
+	bool if_end()
+	{
+		if(if_win())
+		{
+			cout<<"you win"<<endl;
+			return true;
+		}
+		if(if_lose())
+		{
+			cout<<"you lose"<<endl;
+			return true;
+		}
+		return false;
 	}
 
 	void lets_play()
@@ -268,6 +278,56 @@ class SameGame{
 	        delete_pos(a,b);
 	        show_pos();
 	    }
+	}
+
+	void print_solutions()
+	{
+		for (int i = 0; i < posits.size(); ++i)
+		{
+			for (int j = 0; j < posits[i].size(); ++j)
+				cout<<posits[i][j].first<<","<<posits[i][j].second<<" ";
+			cout<<endl;
+		}
+	}
+
+	void solutions()
+	{
+		vector<pair<int,int> > posiciones;
+		generate_options(posiciones,tablero);
+		cout<<posits.size()<<endl;
+		print_solutions();
+	}
+
+	void generate_options(vector<pair<int,int> > positions, int** table)
+	{
+		SameGame same(table,fil,colum);
+		//same.show_pos();
+		
+		if(same.if_win())
+		{	
+			posits.push_back(positions);
+			cout<<"-------------------------------------"<<endl;
+		}
+		if (!same.if_lose())
+		for (int i = 0; i < fil; ++i)
+		{
+			for (int j = 0; j < colum; ++j)
+			{
+				if(same.get_table()[i][j]!=0)
+				{
+					SameGame tmp=same;
+					if(tmp.mark_position(i,j))
+					{
+						pair<int,int> pos(fil-1-i,j);
+						positions.push_back(pos);
+						vector<pair<int,int> > positions2=positions;
+						
+						cout<<fil-1-i<<" "<<j<<endl;
+						generate_options(positions2,tmp.get_copy_table());
+					}
+				}
+			}
+		}
 	}
 
 };

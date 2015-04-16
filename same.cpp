@@ -18,8 +18,9 @@ int main(int argc, char const *argv[])
 
 	SameGame sg(tex);
 
-    sg.show();
-    sg.lets_play();
+    //sg.show_pos();
+    //sg.lets_play();
+    sg.solutions();
     
 	return 0;
 }
